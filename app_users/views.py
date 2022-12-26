@@ -81,4 +81,4 @@ class HomeView(TemplateView):
 class ContactView(CreateView):
     model = Contact
     fields = '__all__'
-    template_name = 'app_users/contact.html'
+    template_name = 'contact.html'
