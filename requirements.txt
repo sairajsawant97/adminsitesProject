@@ -1,0 +1,7 @@
+asgiref
+Django
+django-crispy-forms
+Pillow
+pytz
+sqlparse
+django-jazzmin==2.6.0
