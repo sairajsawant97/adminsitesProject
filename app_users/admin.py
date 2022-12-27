@@ -22,27 +22,37 @@ class UserAdmin(BaseUserAdmin):
 
     list_display = ("email", "first_name", "last_name", "is_staff", "admin_type")
     list_editable = ["admin_type"]
-    login_form = AuthenticationForm
+    # login_form = AuthenticationForm
 
-    def has_permission(self, request):
-        """
-        Checks if the current user has access.
-        """
-        return request.user.admin_type=='None'
+    # def has_permission(self, request):
+    #     """
+    #     Checks if the current user has access.
+    #     """
+    #     return request.user.admin_type=='None'
 
 
 admin.site.register(UserProfileInfo)
 
 class TeacherAdminSite(AdminSite):
-    login_form = AuthenticationForm
+    #login_form = AuthenticationForm
 
     site_header = 'Admin For Teachers'
 
+    login_form = AuthenticationForm
     def has_permission(self, request):
         """
         Checks if the current user has access.
         """
-        return request.user.admin_type=='teacheradmin'
+        if request.user.is_anonymous:
+            pass
+        else:
+            return request.user.admin_type=='teacheradmin'
+
+    # def has_permission(self, request):
+    #     """
+    #     Checks if the current user has access.
+    #     """
+    #     return request.user.is_active
 
 teacheradmin = TeacherAdminSite(name='teacheradmin')
 teacheradmin.register(Standard)
@@ -52,15 +62,27 @@ teacheradmin.register(TimeSlots)
 teacheradmin.register(SlotSubject)
 
 class StudentAdminSite(AdminSite):
-    login_form = AuthenticationForm
+    # login_form = AuthenticationForm
 
     site_header = 'Admin For Students'
 
+
+    login_form = AuthenticationForm
     def has_permission(self, request):
         """
         Checks if the current user has access.
         """
-        return request.user.admin_type=='studentadmin'
+        if request.user.is_anonymous:
+            pass
+        else:
+            return request.user.admin_type=='studentadmin'
+            
+
+    # def has_permission(self, request):
+    #     """
+    #     Checks if the current user has access.
+    #     """
+    #     return request.user.admin_type=='studentadmin'
 
 studentadmin = StudentAdminSite(name='studentadmin')
 studentadmin.register(Subject)
