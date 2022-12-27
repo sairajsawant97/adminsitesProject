@@ -36,11 +36,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{% url 'curriculum:standard_list' %}" class="nav-link">Curriculum</a>
       </li>
-      {% if user.is_superuser %}
+      {% if user.is_superuser and user.admin_type == 'None' %}
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{% url 'admin:index' %}" class="nav-link">Admin</a>
       </li>
-      {%endif%}
+      {% elif user.is_superuser and user.admin_type == 'teacheradmin' %}
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="{% url 'teacheradmin:index' %}" class="nav-link">TeacherAdmin</a>
+      </li>
+      {% elif user.is_superuser and user.admin_type == 'studentadmin' %}
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="{% url 'studentadmin:index' %}" class="nav-link">StudentAdmin</a>
+      </li>
+      {% endif %}
       {% if user.is_authenticated %}
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{% url 'user_logout' %}" class="nav-link">Logout</a>
